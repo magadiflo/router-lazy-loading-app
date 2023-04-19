@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-
+  menuList = [
+    { path: 'digimons', text: 'Digimons' },
+    { path: 'medabots', text: 'Medabots' },
+    { path: 'pokemons', text: 'Pokemons' },
+  ];
 }
