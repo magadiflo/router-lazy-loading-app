@@ -1,1 +1,3 @@
-export const environment = {};
+export const environment = {
+    hostBackend: 'http://localhost:3000/fuckyncode',
+};

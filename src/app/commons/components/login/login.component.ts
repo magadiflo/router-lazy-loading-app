@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
+import { IRequestLogin } from '../../models/auth';
 
 @Component({
   selector: 'app-login',
@@ -6,5 +10,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
+  username: string = 'john';
+  password: string = '123456';
+
+  constructor(
+    private router: Router,
+    private _loginService: AuthService) { }
+
+  login(): void {
+    const user: IRequestLogin = { username: this.username, password: this.password };
+    this._loginService.login(user)
+      .subscribe(({ accessToken }) => console.log(accessToken));
+    // this.router.navigate(['/dashboard']);
+  }
 
 }
