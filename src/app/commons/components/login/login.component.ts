@@ -11,7 +11,7 @@ import { IRequestLogin } from '../../models/auth';
 })
 export class LoginComponent {
 
-  username: string = 'joh3n';
+  username: string = 'john';
   password: string = '123456';
 
   constructor(
