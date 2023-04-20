@@ -11,7 +11,7 @@ import { IRequestLogin } from '../../models/auth';
 })
 export class LoginComponent {
 
-  username: string = 'john';
+  username: string = 'joh3n';
   password: string = '123456';
 
   constructor(
@@ -21,7 +21,10 @@ export class LoginComponent {
   login(): void {
     const user: IRequestLogin = { username: this.username, password: this.password };
     this._loginService.login(user)
-      .subscribe(({ accessToken }) => console.log(accessToken));
+      .subscribe({
+        next: ({ accessToken }) => console.log(accessToken),
+        error: err => console.log('(error)[LoginComponent]:', err.message),
+      });
     // this.router.navigate(['/dashboard']);
   }
 
