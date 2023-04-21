@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
@@ -9,23 +9,33 @@ import { IRequestLogin } from '../../models/auth';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
 
-  username: string = 'john';
-  password: string = '123456';
+  @ViewChild('username') username!: ElementRef<HTMLInputElement>;
+  @ViewChild('password') password!: ElementRef<HTMLInputElement>;
 
   constructor(
     private router: Router,
     private _loginService: AuthService) { }
 
+  ngAfterViewInit(): void {
+    this.username.nativeElement.value = 'john';
+    this.password.nativeElement.value = '123456';
+  }
+
   login(): void {
-    const user: IRequestLogin = { username: this.username, password: this.password };
+    const user: IRequestLogin = {
+      username: this.username.nativeElement.value,
+      password: this.password.nativeElement.value
+    };
     this._loginService.login(user)
       .subscribe({
-        next: ({ accessToken }) => console.log(accessToken),
+        next: ({ accessToken }) => {
+          console.log(accessToken)
+          this.router.navigate(['/dashboard']);
+        },
         error: err => console.log('(error)[LoginComponent]:', err.message),
       });
-    // this.router.navigate(['/dashboard']);
   }
 
 }
