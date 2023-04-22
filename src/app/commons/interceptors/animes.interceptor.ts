@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable()
 export class AnimesInterceptor implements HttpInterceptor {
@@ -15,18 +15,21 @@ export class AnimesInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log(request);
-    return next.handle(request);
+    return next.handle(request)
+      .pipe(
+        catchError(error => this._errorHandler(error))
+      );
   }
 
   private _errorHandler(error: HttpErrorResponse) {
     if (error instanceof HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
-        console.log('Error de cliente');
+        console.log('[Interceptor] Error de cliente');
       } else {
-        console.log('Error de servidor');
+        console.log('[Interceptor] Error de servidor');
       }
     } else {
-      console.log('Otro tipo de error (no cliente ni servidor)');
+      console.log('[Interceptor] Otro tipo de error (no cliente ni servidor)');
     }
     return throwError(() => error);
   }
