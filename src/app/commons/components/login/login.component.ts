@@ -30,8 +30,8 @@ export class LoginComponent implements AfterViewInit {
     };
     this._loginService.login(user)
       .subscribe({
-        next: ({ accessToken }) => {
-          console.log(accessToken)
+        next: ({ accessToken }) => {          
+          localStorage.setItem('access_token', accessToken);
           this.router.navigate(['/dashboard']);
         },
         error: err => console.log('(error)[LoginComponent]:', err.message),
