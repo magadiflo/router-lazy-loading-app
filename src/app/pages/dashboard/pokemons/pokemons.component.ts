@@ -13,6 +13,7 @@ import { Anime } from '../../../commons/models/animes';
 export class PokemonsComponent implements OnInit, OnDestroy {
 
   private _subscriptionAnime!: Subscription;
+  pokemonList: Anime[] = [];
 
   constructor(private _animeService: AnimesService) { }
 
@@ -20,6 +21,7 @@ export class PokemonsComponent implements OnInit, OnDestroy {
     this._subscriptionAnime = this._animeService.getAnime('pokemon')
       .subscribe((pokemonList: Anime[]) => {
         console.log(pokemonList);
+        this.pokemonList = pokemonList;
       });
   }
 

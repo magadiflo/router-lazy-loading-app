@@ -1,1 +1,13 @@
-<p>pokemons works!</p>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col card" *ngFor="let anime of pokemonList;">
+        <app-anime [name]="anime.name" [description]="anime.description" [urlImg]="anime.ulrImg"></app-anime>
+        <ng-template [ngIf]="anime.evolutions">
+            <div class="row border-top">
+                <div class="col" *ngFor="let evolution of anime.evolutions">
+                    <app-anime [name]="evolution.name" [description]="evolution.description"
+                        [urlImg]="evolution.ulrImg"></app-anime>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
