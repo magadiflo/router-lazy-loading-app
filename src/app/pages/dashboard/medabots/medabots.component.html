@@ -1,1 +1,8 @@
-<p>medabots works!</p>
+<h2>Medabots</h2>
+<hr>
+<div *ngIf="hasUnsavedChanges; else cambiosGuardados" class="alert alert-danger">Tiene cambios sin guardar!!</div>
+<ng-template #cambiosGuardados>
+    <div class="alert alert-success">Los cambios fueron guardados correctamente!</div>
+</ng-template>
+<hr>
+<button type="button" (click)="saveChanges()" class="btn btn-primary">Guardar Cambios</button>

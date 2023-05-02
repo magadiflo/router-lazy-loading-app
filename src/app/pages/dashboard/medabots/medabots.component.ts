@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class MedabotsComponent {
 
+  hasUnsavedChanges = true;
+
+  saveChanges() {
+    this.hasUnsavedChanges = false;
+  }
 }
