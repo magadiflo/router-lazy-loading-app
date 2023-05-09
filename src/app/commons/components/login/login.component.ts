@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../services/auth.service';
 import { IRequestLogin } from '../../models/auth';
+import { AuthService } from '../../services/auth.service';
+import { JwtAuthService } from '../../services/jwt-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements AfterViewInit {
 
   constructor(
     private router: Router,
-    private _loginService: AuthService) { }
+    private _loginService: AuthService,
+    private _jwtAuthService: JwtAuthService) { }
 
   ngAfterViewInit(): void {
     this.username.nativeElement.value = 'john';
@@ -31,7 +33,7 @@ export class LoginComponent implements AfterViewInit {
     this._loginService.login(user)
       .subscribe({
         next: ({ accessToken }) => {          
-          localStorage.setItem('access_token', accessToken);
+          this._jwtAuthService.login(accessToken);
           this.router.navigate(['/dashboard']);
         },
         error: err => console.log('(error)[LoginComponent]:', err.message),

@@ -6,3 +6,9 @@ export interface IRequestLogin {
 export interface IResponseLogin {
     accessToken: string;
 }
+
+export interface IJwt {
+    exp: number;
+    role: string[];
+    username: string;
+}
