@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -9,10 +9,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class RegisterComponent {
 
   miFormulario: FormGroup = this._fb.group({
-    name: [null],
-    email: [null],
-    password: [null],
-    'repeat-password': [null]
+    name: [null, [Validators.required]],
+    email: [null, [Validators.required, Validators.email]],
+    password: [null, [Validators.required, Validators.minLength(6)]],
+    'repeat-password': [null, [Validators.required, Validators.minLength(6)]]
   });
 
   constructor(private _fb: FormBuilder) { }

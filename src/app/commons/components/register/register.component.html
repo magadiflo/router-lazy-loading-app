@@ -9,14 +9,18 @@
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                <form [formGroup]="miFormulario" (ngSubmit)="register()" class="mx-1 mx-md-4">
+                                <form [formGroup]="miFormulario" (ngSubmit)="register()" autocomplete="off"
+                                    class="mx-1 mx-md-4">
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="text" formControlName="name" id="form3Example1c"
-                                                class="form-control" />
-                                            <label class="form-label" for="form3Example1c">Your Name</label>
+                                                class="form-control" placeholder="Input your name">
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['name'].touched && miFormulario.controls['name'].errors?.['required']">
+                                                El name es requerido
+                                            </span>
                                         </div>
                                     </div>
 
@@ -24,8 +28,15 @@
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="email" formControlName="email" id="form3Example3c"
-                                                class="form-control" />
-                                            <label class="form-label" for="form3Example3c">Your Email</label>
+                                                class="form-control" placeholder="Input your email">
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['email'].touched && miFormulario.controls['email'].hasError('required')">
+                                                El email es requerido
+                                            </span>
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['email'].touched && miFormulario.controls['email'].hasError('email')">
+                                                El valor ingresado no tiene formato de email
+                                            </span>
                                         </div>
                                     </div>
 
@@ -33,8 +44,15 @@
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="password" formControlName="password" id="form3Example4c"
-                                                class="form-control" />
-                                            <label class="form-label" for="form3Example4c">Password</label>
+                                                class="form-control" placeholder="Input your password">
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['password'].touched && miFormulario.controls['password'].hasError('required')">
+                                                El password es requerido
+                                            </span>
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['password'].touched && miFormulario.controls['password'].errors?.['minlength']">
+                                                El password debe tener como mínimo 6 caracteres
+                                            </span>
                                         </div>
                                     </div>
 
@@ -42,14 +60,22 @@
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="password" formControlName="repeat-password"
-                                                id="form3Example4cd" class="form-control" />
-                                            <label form class="form-label" for="form3Example4cd">Repeat your
-                                                password</label>
+                                                id="form3Example4cd" class="form-control"
+                                                placeholder="Input your repeat password">
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['repeat-password'].touched && miFormulario.controls['repeat-password'].errors?.['required']">
+                                                El repeat password es requerido
+                                            </span>
+                                            <span class="d-block form-text text-danger"
+                                                *ngIf="miFormulario.controls['repeat-password'].touched && miFormulario.controls['repeat-password'].errors?.['minlength']">
+                                                El repeat password debe tener como mínimo 6 caracteres
+                                            </span>
                                         </div>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                        <button type="submit" [disabled]="miFormulario.invalid"
+                                            class="btn btn-primary btn-lg">Register</button>
                                     </div>
 
                                     <div class="text-center text-lg-start mt-4 pt-2">
@@ -66,6 +92,8 @@
                                     class="img-fluid" alt="Sample image">
                             </div>
                         </div>
+                        <pre>{{ miFormulario.value | json }}</pre>
+                        <pre>{{ miFormulario.controls['repeat-password'].errors | json }}</pre>
                     </div>
                 </div>
             </div>
