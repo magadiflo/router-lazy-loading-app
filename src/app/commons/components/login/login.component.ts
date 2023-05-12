@@ -14,7 +14,7 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent {
 
   @ViewChild('myFormLogin') myFormLogin: NgForm | undefined;
-  dataLoginForm: IRequestLogin = { username: '', password: '' };
+  dataLoginForm: IRequestLogin = { username: 'john', password: '123456' };
 
   constructor(
     private router: Router,
@@ -22,19 +22,15 @@ export class LoginComponent {
     private _jwtAuthService: JwtAuthService) { }
 
   login(): void {
-    // const user: IRequestLogin = {
-    //   username: this.username,
-    //   password: this.password
-    // };
-    // this._loginService.login(user)
-    //   .subscribe({
-    //     next: ({ accessToken }) => {
-    //       this._jwtAuthService.login(accessToken);
-    //       this.router.navigate(['/dashboard']);
-    //     },
-    //     error: err => console.log('(error)[LoginComponent]:', err.message),
-    //   });
     console.log(this.dataLoginForm);
+    this._loginService.login(this.dataLoginForm)
+      .subscribe({
+        next: ({ accessToken }) => {
+          this._jwtAuthService.login(accessToken);
+          this.router.navigate(['/dashboard']);
+        },
+        error: err => console.log('(error)[LoginComponent]:', err.message),
+      });
   }
 
 }
