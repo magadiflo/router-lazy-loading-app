@@ -31,6 +31,15 @@ export class RegisterComponent {
     console.log(this.miFormulario.value);
   }
 
+  registrar(): void {
+    console.log('Validando el formulario completo!');
+    if (this.miFormulario.invalid) {
+      this.miFormulario.markAllAsTouched();
+    } else {
+      console.log('Registrando....');
+    }
+  }
+
   // Forma 01
   getError1(controlName: string): string {
     const control = this.miFormulario.controls[controlName];
