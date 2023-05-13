@@ -29,13 +29,8 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="email" formControlName="email" id="form3Example3c"
                                                 class="form-control" placeholder="Input your email">
-                                            <span class="d-block form-text text-danger"
-                                                *ngIf="miFormulario.controls['email'].touched && miFormulario.controls['email'].hasError('required')">
-                                                El email es requerido
-                                            </span>
-                                            <span class="d-block form-text text-danger"
-                                                *ngIf="miFormulario.controls['email'].touched && miFormulario.controls['email'].hasError('email')">
-                                                El valor ingresado no tiene formato de email
+                                            <span class="d-block form-text text-danger">
+                                                {{ getError('email') }}
                                             </span>
                                         </div>
                                     </div>
@@ -45,13 +40,8 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="password" formControlName="password" id="form3Example4c"
                                                 class="form-control" placeholder="Input your password">
-                                            <span class="d-block form-text text-danger"
-                                                *ngIf="miFormulario.controls['password'].touched && miFormulario.controls['password'].hasError('required')">
-                                                El password es requerido
-                                            </span>
-                                            <span class="d-block form-text text-danger"
-                                                *ngIf="miFormulario.controls['password'].touched && miFormulario.controls['password'].errors?.['minlength']">
-                                                El password debe tener como mínimo 6 caracteres
+                                            <span class="d-block form-text text-danger">
+                                                {{ getError('password') }}
                                             </span>
                                         </div>
                                     </div>
@@ -93,7 +83,7 @@
                             </div>
                         </div>
                         <pre>{{ miFormulario.value | json }}</pre>
-                        <pre>{{ miFormulario.controls['repeat-password'].errors | json }}</pre>
+                        <pre>{{ miFormulario.controls['password'].errors | json }}</pre>
                     </div>
                 </div>
             </div>
