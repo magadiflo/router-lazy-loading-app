@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MODEL_REGISTER_ERRORS } from './model-message-error';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterComponent {
     console.log(this.miFormulario.value);
   }
 
-  getError(controlName: string): string {
+  // Forma 01
+  getError1(controlName: string): string {
     const control = this.miFormulario.controls[controlName];
 
     if (control && control.touched && control.invalid) {
@@ -42,7 +44,18 @@ export class RegisterComponent {
       }
       if (control.hasError('minlength')) {
         return `El ${controlName} requiere como mínimo ${control.getError('minlength').requiredLength} caracteres`;
-      }       
+      }
+    }
+    return '';
+  }
+
+  // Forma 02
+  getError(controlName: string): string {
+    const control = this.miFormulario.controls[controlName];
+    if (control && control.touched && control.invalid) {
+      const attributeError = MODEL_REGISTER_ERRORS.find(control => control.formControlName === controlName);
+      const validator = attributeError?.validators.find(val => control.errors?.[val.name]);
+      return validator!.message;
     }
     return '';
   }
