@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MODEL_REGISTER_ERRORS } from './model-message-error';
+import { MODEL_REGISTER_ERRORS, customSimbolos } from './model-message-error';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ import { MODEL_REGISTER_ERRORS } from './model-message-error';
 export class RegisterComponent {
 
   miFormulario: FormGroup = this._fb.group({
-    name: [null, [Validators.required]],
+    name: [null, [Validators.required, customSimbolos()]],
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required, Validators.minLength(6)]],
     'repeat-password': [null, [Validators.required, Validators.minLength(6)]]

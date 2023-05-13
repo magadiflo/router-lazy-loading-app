@@ -17,10 +17,7 @@
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="text" formControlName="name" id="form3Example1c"
                                                 class="form-control" placeholder="Input your name">
-                                            <span class="d-block form-text text-danger"
-                                                *ngIf="miFormulario.controls['name'].touched && miFormulario.controls['name'].errors?.['required']">
-                                                El name es requerido
-                                            </span>
+                                            <span class="d-block form-text text-danger">{{ getError('name')}}</span>
                                         </div>
                                     </div>
 
